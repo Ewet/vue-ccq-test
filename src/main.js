@@ -24,6 +24,7 @@ let app = null;
  */
 function render ({ appContent, loading } = {}) {
   if (!app) {
+    // eslint-disable-next-line no-undef
     app = new Vue({
       el: "#container",
       router,
