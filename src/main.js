@@ -1,7 +1,13 @@
-import Vue from 'vue'
-import App from './App.vue'
+// import Vue from 'Vue'
+import App from './App'
 import router from './router';
 import store from './store';
+import pager from "./plugins/pager"   
+pager.subscribe(v => {                     // 在主应用注册呼机监听器，这里可以监听到其他应用的广播
+  console.log(`监听到子应用${v.from}发来消息：`, v)
+  store.dispatch('app/setToken', v.token)  // 这里处理主应用监听到改变后的逻辑
+})
+
 // 导入qiankun内置函数
 import {
   registerMicroApps, // 注册子应用
@@ -56,14 +62,11 @@ render();
 
 // 定义传入子应用的数据
 let msg = {
-  data: {
-      auth: false
-  },
-  fns: [
-    function LOGOUT_(data) {
-        alert('父应用返回信息：' + data)
-    }
-  ]
+  data: store.getters,                     // 从主应用仓库读出的数据
+    // components: LibraryUi,                   // 从主应用读出的组件库
+    // utils: LibraryJs,                        // 从主应用读出的工具类库
+    // emitFnc: childEmit,                      // 从主应用下发emit函数来收集子应用反馈
+  pager                                    // 从主应用下发应用间通信呼机
 }
 
 // 注册子应用

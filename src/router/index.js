@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-Vue.use(Router)
-const router = new Router({
+// import Vue from 'vue'
+// import VueRouter from 'VueRouter'
+Vue.use(VueRouter)
+const router = new VueRouter({
   
 })
 
